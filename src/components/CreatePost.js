@@ -18,7 +18,7 @@ function CreatePost({ user })
         if (!RegExp('^(\\s)*$').test(title.current.value) && !RegExp('^(\\s)*$').test(content.current.value))
         {  
             setSubmiting('pending');
-            axios.post(`http://localhost:3001/posts` , {userID: user.uid , title: title.current.value , content: content.current.value , date: Date.now() , tags})
+            axios.post(`http://localhost:3001/posts` , {userID: user.uid , title: title.current.value.trim() , content: content.current.value.trim() , date: Date.now() , tags})
             .then(() => setSubmiting('done'));
         }
     };
@@ -44,7 +44,7 @@ function CreatePost({ user })
             </select></SideText> 
             <SideText>Custom Tags:</SideText> 
             <TextInput ref={customTag} maxLength={16}/>
-            <SmallButton onClick={() => {addTag(customTag.current.value.toLowerCase()); customTag.current.value = "";}}>enter tag</SmallButton>
+            <SmallButton onClick={() => {addTag(customTag.current.value.toLowerCase().trim()); customTag.current.value = "";}}>enter tag</SmallButton>
         </ProfileDiv>
         <div>{tags[0] ? <ProfileDiv>{tags.map((tag , index) => <Tag key={index} onClick={() => {
             let newArray = tags.filter(e => e !== tag);
