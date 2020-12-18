@@ -10,13 +10,13 @@ function HomePage({ user , scroll })
     const [postList , setList] = useState();
     const [offset , setOffset] = useState(10);
     const [search , setSearch] = useState("");
-    const [userFilter , setUserFilter] = useState("");
+    const [userFilter , setUserFilter] = useState({userID: "" , userName: ""});
     const [tags , setTags] = useState([]);
     const [sort , setSort] = useState("");
     const [backToTopDisplay , setbackToTopDisplay] = useState("none");
 
     const getData = () => {
-        axios.get(`http://localhost:3001/posts?offset=${offset}&search=${search}&userFilter=${userFilter}&sort=${sort}&tags=${tags.join('$')}&uid=${user ? user.uid : ""}`)
+        axios.get(`http://localhost:3001/posts?offset=${offset}&search=${search}&userFilter=${userFilter.userID}&sort=${sort}&tags=${tags.join('$')}&uid=${user ? user.uid : ""}`)
         .then(result => setList(result.data))
         .catch(error => console.log(error));
     };
@@ -37,12 +37,12 @@ function HomePage({ user , scroll })
         <SortButton style={{borderColor: sort === "likes" ? "black" : "darkgray" , color: sort === "likes" ? "black" : "darkgray"}} onClick={() => setSort("likes")}>sort by likes</SortButton>
         <SortButton style={{borderColor: sort === "" ? "black" : "darkgray" , color: sort === "" ? "black" : "darkgray"}} onClick={() => setSort("")}>sort by date</SortButton>
         </div>
-        <div>{userFilter ? <Tag onClick={() => setUserFilter("")}>user: {userFilter}</Tag> : null}
+        <div>{userFilter.userID !== "" ? <Tag onClick={() => setUserFilter({userID: "" , userName: ""})}>user: {userFilter.userName}</Tag> : null}
         {tags[0] ? tags.map((tag , index) => <Tag key={index} onClick={() => {
             let newArray = tags.filter(e => e !== tag);
             setTags(newArray);
         }}>tag: {tag}</Tag>) : null}</div>
-        {postList ? postList.data.map((post , index) => <Post user={user} userSearch={() => setUserFilter(post.userID)} tagSearch={({target: { textContent }}) => {
+        {postList ? postList.data.map((post , index) => <Post user={user} userSearch={() => setUserFilter({userID: post.userID , userName: post.userName})} tagSearch={({target: { textContent }}) => {
             if (tags.length <= 3 && !tags.includes(textContent))
             {
                 let newTags = [textContent].concat(tags);
