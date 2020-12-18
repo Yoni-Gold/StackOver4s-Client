@@ -16,8 +16,6 @@ function PostPage({ user , match })
         .then(result => {
             setPost(result.data);
             setSave(result.data.didSave);
-        })
-        .then(() => {
             axios.get(`http://localhost:3001/comments/${match.params.id}?offset=5&uid=${user ? user.uid : ""}`)
             .then(result => setComments(result.data))
             .catch(error => console.log(error));
@@ -45,7 +43,7 @@ function PostPage({ user , match })
     const postComment = () => {
         axios.post(`http://localhost:3001/comments` , {userID: user.uid , date: Date.now() , content: commentText.current.value , postID: post.id})
         .then(() => {
-            let newComments = comments;
+            let newComments = {...comments};
             newComments.data.unshift({userID: user.uid , date: Date.now() , content: commentText.current.value , postID: post.id , likes: 0 , userName: user.providerData[0].displayName});
             newComments.length++;
             commentText.current.value = "";
