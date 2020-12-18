@@ -15,9 +15,12 @@ function CreatePost({ user })
     const customTag = useRef();
 
     const submitPost = () => {
-        setSubmiting('pending');
-        axios.post(`http://localhost:3001/posts` , {userID: user.uid , title: title.current.value , content: content.current.value , date: Date.now() , tags})
-        .then(() => setSubmiting('done'));
+        if (!RegExp('^(\\s)*$').test(title.current.value) && !RegExp('^(\\s)*$').test(content.current.value))
+        {  
+            setSubmiting('pending');
+            axios.post(`http://localhost:3001/posts` , {userID: user.uid , title: title.current.value , content: content.current.value , date: Date.now() , tags})
+            .then(() => setSubmiting('done'));
+        }
     };
 
     const addTag = (tag) => {
