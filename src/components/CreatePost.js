@@ -31,9 +31,9 @@ function CreatePost({ user })
         }
     };
 
-    return <Main>
+    return <>{user ? <Main>
         <PostDiv>
-            <Main>
+        <Main>
         <ProfileDiv><SideTitle>Create Post</SideTitle></ProfileDiv>
         <ProfileDiv><SideText>Post Title</SideText><TextInput ref={title} maxLength={40}/></ProfileDiv>
         <ProfileDiv><SideText>Content</SideText><TextArea ref={content} maxLength={400}/></ProfileDiv>
@@ -53,6 +53,8 @@ function CreatePost({ user })
         </Main></PostDiv>
         {submiting === 'none' ? <Button onClick={submitPost}>Submit Post</Button> : submiting === 'pending' ? <Loading /> : <Redirect to='/' />}
         </Main>
+        :
+        <h1>Log in to create a post</h1>}</>
 }
 
 export default CreatePost;
