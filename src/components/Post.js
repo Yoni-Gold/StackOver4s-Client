@@ -5,8 +5,6 @@ import { useState } from 'react';
 
 function Post({ user , post , userSearch , tagSearch})
 {
-    // const [likeState , setLike] = useState(post.didLike ? 'red' : 'darkgray');
-    // const [likeCount , setCount] = useState(post.likes);
     const [saveState , setSave] = useState(post.didSave);
 
     const sendLike = (element , type , userID , postID , reciverID) => {

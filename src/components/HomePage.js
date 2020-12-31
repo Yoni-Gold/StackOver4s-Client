@@ -7,13 +7,13 @@ import Loading from './Loading';
 
 function HomePage({ user , scroll })
 {
-    const [postList , setList] = useState();
-    const [offset , setOffset] = useState(10);
-    const [search , setSearch] = useState("");
-    const [userFilter , setUserFilter] = useState({userID: "" , userName: ""});
-    const [tags , setTags] = useState([]);
-    const [sort , setSort] = useState("");
-    const [backToTopDisplay , setbackToTopDisplay] = useState("none");
+    const [postList , setList] = useState(); // the list of the posts
+    const [offset , setOffset] = useState(10); // state of how many posts are displayed
+    const [search , setSearch] = useState(""); // the search query
+    const [userFilter , setUserFilter] = useState({userID: "" , userName: ""}); // filter by user
+    const [tags , setTags] = useState([]); // filter by tags
+    const [sort , setSort] = useState(""); // sort by likes or date
+    const [backToTopDisplay , setbackToTopDisplay] = useState("none"); // scroll to top button
 
     const getData = () => {
         axios.get(`http://localhost:3001/posts?offset=${offset}&search=${search}&userFilter=${userFilter.userID}&sort=${sort}&tags=${tags.join('$')}&uid=${user ? user.uid : ""}`)

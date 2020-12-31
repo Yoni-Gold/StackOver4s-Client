@@ -26,10 +26,10 @@ firebase.initializeApp({
 
 function App() {
 
-  const [user , loading] = useAuthState(firebase.auth());
-  const [scroll , setScroll] = useState(1);
-  const [doneUpdating , setUpdating] = useState(false);
-  const [siteInfo , setInfo] = useState();
+  const [user , loading] = useAuthState(firebase.auth()); // state of the user and if its done loading
+  const [scroll , setScroll] = useState(1); // scroll state for the infinity scroll
+  const [doneUpdating , setUpdating] = useState(false); // state of the http request after the user is set
+  const [siteInfo , setInfo] = useState(); // info for the side div
 
   useEffect(() => {
     !loading && axios.post(`http://localhost:3001/users` , user && {githubID: user.uid, name: user.providerData[0].displayName, email: user.email})

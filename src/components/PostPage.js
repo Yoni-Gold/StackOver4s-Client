@@ -12,13 +12,13 @@ function PostPage({ user , match })
     const commentText = useRef();
 
     const getData = () => {
-        axios.get(`http://localhost:3001/posts/${match.params.id}?uid=${user ? user.uid : ""}`)
+        axios.get(`http://localhost:3001/posts/${match.params.id}?uid=${user ? user.uid : ""}`) // getting the posts
         .then(result => {
             if (result.data.title && result.data.content && result.data.tags && result.data.userName && result.data.date)
             {
                 setPost(result.data);
                 setSave(result.data.didSave);
-                axios.get(`http://localhost:3001/comments/${match.params.id}?offset=5&uid=${user ? user.uid : ""}`)
+                axios.get(`http://localhost:3001/comments/${match.params.id}?offset=5&uid=${user ? user.uid : ""}`) // getting the comments
                 .then(result => setComments(result.data))
                 .catch(error => console.log(error));
             } 

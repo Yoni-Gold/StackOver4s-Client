@@ -1,4 +1,4 @@
-export default [
+export default [ // this is only a list for the tags available in the create post page
     'node',
     'javascript',
     'c',
