@@ -10,6 +10,7 @@ import CreatePost from './components/CreatePost';
 import PostPage from './components/PostPage';
 //import { StickyContainer, Sticky } from 'react-sticky';
 import ProfileBlock from './components/ProfileBlock';
+import ScoreBoard from './components/ScoreBoard';
 import SideDiv from './components/SideDiv';
 import Loading from './components/Loading';
 
@@ -52,6 +53,7 @@ function App() {
       <Route path="/post/:id" exact render={(props) => <PostPage firebase={firebase} user={user} key={props.match.params.id} {...props} />}/> 
       <Route path="/profile" exact render={(props) => <ProfilePage firebase={firebase} user={user} {...props}/>} />
       <Route path="/create" exact render={(props) => <CreatePost firebase={firebase} user={user} {...props}/>} />
+      <Route path="/score" exact render={(props) => <ScoreBoard {...props}/>} />
       <Route path="/" render={() => <h1>404 not found</h1>}/>
       </Switch>
       :

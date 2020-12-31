@@ -1,4 +1,5 @@
-import { ProfileDiv , SideText , SideTitle} from './Styles';
+import { ProfileDiv , SideText , SideTitle , Button } from './Styles';
+import { Link } from 'react-router-dom';
 
 function SideDiv({ info })
 {
@@ -12,6 +13,8 @@ function SideDiv({ info })
         <div>• • •</div>
         <SideText>With {info.tagsArray[0].tag} ({info.tagsArray[0].count}) , {info.tagsArray[1].tag} ({info.tagsArray[1].count}) and {info.tagsArray[2].tag} ({info.tagsArray[2].count}) being the most trending tags</SideText>
         </> : null}
+        <div>• • •</div>
+        <Link to='/score'><Button>Leader Board</Button></Link>
         </ProfileDiv>
 }
 

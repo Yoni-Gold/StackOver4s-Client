@@ -14,11 +14,14 @@ function PostPage({ user , match })
     const getData = () => {
         axios.get(`http://localhost:3001/posts/${match.params.id}?uid=${user ? user.uid : ""}`)
         .then(result => {
-            setPost(result.data);
-            setSave(result.data.didSave);
-            axios.get(`http://localhost:3001/comments/${match.params.id}?offset=5&uid=${user ? user.uid : ""}`)
-            .then(result => setComments(result.data))
-            .catch(error => console.log(error));
+            if (result.data.title && result.data.content && result.data.tags && result.data.userName && result.data.date)
+            {
+                setPost(result.data);
+                setSave(result.data.didSave);
+                axios.get(`http://localhost:3001/comments/${match.params.id}?offset=5&uid=${user ? user.uid : ""}`)
+                .then(result => setComments(result.data))
+                .catch(error => console.log(error));
+            } 
         })
         .catch(error => console.log(error));
     };
@@ -67,7 +70,7 @@ function PostPage({ user , match })
     };
 
     useEffect(getData, []);
-
+    console.log(post);
     return <div>
         {post ? <Main>
         <PostDiv>
